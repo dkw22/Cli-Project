@@ -1,7 +1,13 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "project/cli"
+require_relative '../config/environment.rb'
+
+# require "bundler/setup"
+# require "project/cli"
+
+JokesAPI.new.get_jokes 
+binding.pry 
+
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
@@ -10,5 +16,5 @@ require "project/cli"
 # require "pry"
 # Pry.start
 
-require "irb"
-IRB.start(__FILE__)
+# require "irb"
+# IRB.start(__FILE__)
