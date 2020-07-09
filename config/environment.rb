@@ -7,12 +7,6 @@ require_relative '../lib/services/dad_jokes_cli.rb'
 
 
 
-
-
-
-
-
-
 # require "project/cli/version"
 
 # module Project
