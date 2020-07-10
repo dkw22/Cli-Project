@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Able to see all the possible dad jokes you can handle. 
 
 ## Development
 
