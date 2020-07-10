@@ -6,16 +6,9 @@ class DadJokesCLI
     end 
 
     def start
-        #welcome user
         welcome 
-
-        #get all dad jokes for user to have
         DadJokesAPI.new.get_dad_jokes
-
-        #show main menu
-        #allow user to interact with menu
         menu 
-
     end 
 
     def welcome 
@@ -25,19 +18,16 @@ class DadJokesCLI
 
     def menu 
         user_input 
-        while input != 'q' do 
-            case input 
-            when 'a'
-                #print all dad jokes
+        while input.to_i != 4 do 
+            case input.to_i 
+            when 1
                 print_all_dad_jokes
-            when 'd'
-                #show dad joke of the day!
-                print_dad_joke_of_the_day
-            when 'n'
-                #show number of dad jokes
+            when 2
+                print_random_dad_joke
+            when 3
                 print_number_of_dad_jokes
             else 
-                puts "\nInvaild input. Please try again!\n\n"
+                validation
             end 
             user_input 
         end 
@@ -46,11 +36,11 @@ class DadJokesCLI
     def user_input
         puts "Main Menu:\n"
         puts "\nChoose from the following options!\n"
-        puts "\nEnter 'a' to see all dad jokes!\n"
-        puts "\nEnter 'd' for dad joke of the day!\n"
-        puts "\nEnter 'n' to see a number of dad jokes of your choosing!\n"
-        puts "\nEnter 'q' to quit!\n\n"
-        self.input = gets.chomp
+        puts "\nEnter '1' to see all dad jokes!\n"
+        puts "\nEnter '2' for a random dad joke!\n"
+        puts "\nEnter '3' to see a number of dad jokes of your choosing!\n"
+        puts "\nEnter '4' to quit!\n\n"
+        self.input = gets.chomp.to_i
     end 
         
 
@@ -61,20 +51,32 @@ class DadJokesCLI
         nil 
     end 
 
-    def print_dad_joke_of_the_day
+    def print_random_dad_joke
         dad_joke_of_the_day = DadJokes.all.sample
         puts "\nSetup: #{dad_joke_of_the_day.punchline} \nPunchline: #{dad_joke_of_the_day.setup}\n\n"
     end
     
     def print_number_of_dad_jokes
+        user_numb
+        if self.input.to_i.between?(1,50)  
+            num_of_dad_jokes = DadJokes.all.to_a 
+            num_of_dad_jokes.sample(self.input.to_i).each do |dad_joke|
+                puts "\nSetup: #{dad_joke.punchline}\n\nPunchline: #{dad_joke.setup}\n\n"
+            end 
+        else 
+            validation
+            print_number_of_dad_jokes
+        end  
+    end 
+
+    def user_numb
         puts "\nHow many dad jokes would you like to see? \n"
-        puts "Please enter a number anywhere from 1 - 50 below:"
-        self.input = gets.chomp
-        num_of_dad_jokes = DadJokes.all.to_a 
-        num_of_dad_jokes.sample(self.input.to_i).each do |dad_joke|
-            puts "\nSetup: #{dad_joke.punchline}\n\nPunchline: #{dad_joke.setup}\n\n"
-        end 
-            
-        # num_of_dad_jokes = DadJokes.all.to_a.sample(self.input.to_i)
+        puts "Please enter a number anywhere from 1 - 50 below:\n\n"
+        self.input = gets.chomp.to_i
+
+    end 
+
+    def validation
+        puts "\nInvaild input. Please try again!\n\n"
     end 
 end 
